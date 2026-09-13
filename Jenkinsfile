@@ -14,8 +14,8 @@ pipeline {
                     branches: [[name: '*/main']],
                     extensions: [],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/Fykio/cidemo.git',
-                        credentialsId: 'CI-Demo-GitHub-PAT' // Your GitHub credentials ID in Jenkins
+                        url: 'https://github.com/Adewalekean/cidemo.git',
+                        credentialsId: 'my-github-pat' // Your GitHub credentials ID in Jenkins
                     ]]
                 ])
             }
@@ -31,7 +31,7 @@ pipeline {
         // Stage 3: Build Docker image
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t fykio/cidemo:v${BUILD_ID} .'
+                sh 'docker build -t adewalekean/cidemo:v${BUILD_ID} .'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
-                        sh 'docker push fykio/cidemo:v${BUILD_ID}'
+                        sh 'docker push adewalekean/cidemo:v${BUILD_ID}'
                     }
                 }
             }
